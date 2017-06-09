@@ -103,7 +103,7 @@ let imageDatas=[
     imageURL:"../images/16.jpg"
   },
 ]
-//let yeomanImage = require('../images/yeoman.png');
+//let yeomanImage = require('../images/yeoman.jpg');
 
 //利用自执行函数，将图片名信息转换成URL路径信息
 /*imageDatas=(function genImagerURL(imageDatasAttr) {
@@ -118,13 +118,55 @@ let imageDatas=[
 
 
 
+function ImgFigure(props) {
+    return(
+      <figure className="image-figure">
+        <img src={props.data.imageURL} alt={props.data.title} />
+        <figcaption>
+          <h2 className="image-title">{props.data.title}</h2>
+        </figcaption>
+      </figure>
+    )
+}
+const Constant={
+  centerPos:{
+    left:0,
+    top:0
+  },
+  hPosRange:{//水平方向的取值范围
+    leftSecX:[0,0],
+    rightSecX:[0,0],
+    y:[0,0]
+  },
+  vPosRange:{ //垂直方向的取值范围
+    x:[0,0],
+    topY:[0,0]
+  }
+
+
+}
 class AppComponent extends React.Component {
+  constructor(props){
+    super(props);
+  }
+  //组件加载以后为每张图片设置位置
+  componentDidMount() {
+    //拿到舞台大小
+  }
   render() {
+    const controllerUnits=[];
+    const imgFigures=[];
+    imageDatas.forEach(function (value) {
+      imgFigures.push(<ImgFigure data={value}/>);
+    })
     return (
-      <section className="stage">
-        111
-          <section className="image-sec">222</section>
-          <nav className="controller-nav">333</nav>
+      <section className="stage" ref="stage">
+          <section className="image-sec">
+            {imgFigures}
+          </section>
+          <nav className="controller-nav">
+            {controllerUnits}
+          </nav>
       </section>
     );
   }
