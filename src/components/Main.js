@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 
 //获取图片相关数据
 //let imageDatas = require('json!../data/imageDatas.json');
-let imageDatas=[
+/*let imageDatas=[
   {
     fileName: "1.jpg",
     title: "第一张图片",
@@ -104,33 +104,20 @@ let imageDatas=[
     desc:"有一个美好的故事",
     imageURL:"../images/16.jpg"
   },
-]
-//let yeomanImage = require('../images/yeoman.jpg');
+]*/
+//获取图片相关的数据
+let imageDatas = require('json!../data/imageDatas.json');
 
-//利用自执行函数，将图片名信息转换成URL路径信息
-/*imageDatas=(function genImagerURL(imageDatasAttr) {
-  for(var i=0;i<imageDatasAttr.length;i++){
-    var singleImageData=imageDatasAttr[i];
+//利用自执行函数，将图片名信息转成图片URL路径信息
 
-    singleImageData.imageURL=require('../images/'+singleImageData.filename);
-    imageDatasAttr[i]=singleImageData;
+imageDatas = ((imageDatasArr) => {
+  for (var i = 0, j = imageDatasArr.length; i < j; i++) {
+    let singleImageData = imageDatasArr[i];
+    singleImageData.imageURL = require('../images/' + singleImageData.fileName);
+    imageDatasArr[i] = singleImageData;
   }
-  return imageDatasAttr;
-})(imageDatas);*/
-
-
-
-/*function ImgFigure(props) {
-    return(
-      <figure className="image-figure">
-        <img src={props.data.imageURL} alt={props.data.title} />
-        <figcaption>
-          <h2 className="image-title">{props.data.title}</h2>
-        </figcaption>
-      </figure>
-    )
-}*/
-
+  return imageDatasArr;
+})(imageDatas);
 /**
  * 获取一个区间内的随机值
  * **/
@@ -146,7 +133,7 @@ var get30DegRandom = () => {
   return deg + Math.ceil(Math.random() * 30);
 };
 
-
+//图片组件
 class ImgFigure extends React.Component{
   constructor(props){
     super(props);
@@ -194,6 +181,38 @@ class ImgFigure extends React.Component{
     )
   }
 }
+//控制按钮组件
+class ControllerUnit extends React.Component{
+  constructor(props){
+    super(props)
+    this.handleClick=this.handleClick.bind(this)
+  }
+  handleClick(e){
+    //翻转和居中图片
+    if (this.props.arrange.isCenter) {
+      this.props.inverse()
+    } else {
+      this.props.center();
+    }
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  render(){
+    let controllerUnitClassName = 'controller-unit';
+    //如果对应的是居中的图片，显示控制按钮的居中态
+    if (this.props.arrange.isCenter) {
+      controllerUnitClassName += ' is-center ';
+      //如果翻转显示翻转状态
+      if (this.props.arrange.isInverse) {
+        controllerUnitClassName += 'is-inverse'
+      }
+    }
+    return (
+      <span className={controllerUnitClassName} onClick={this.handleClick}></span>
+    )
+  }
+}
+//主组件
 class AppComponent extends React.Component {
   constructor(props){
     super(props);
@@ -286,7 +305,7 @@ class AppComponent extends React.Component {
 
 
       imgsArrangTopArr = [],//放在上测区域图片的数组状态信息
-      topImgNum = Math.ceil(Math.random()*2), //取一个或者0个
+      topImgNum = Math.floor(Math.random()*2), //取一个或者0个
       topImgSpiceIndex = 0,//上边的图片是从数组哪个位置取出的
 
       imgsArrangeCenterArr = imgsArrangeArr.splice(centerIndex, 1);
@@ -334,6 +353,8 @@ class AppComponent extends React.Component {
         isCenter:false
       }
     }
+
+
     if (imgsArrangTopArr && imgsArrangTopArr[0]) {
       imgsArrangeArr.splice(topImgSpiceIndex, 0, imgsArrangTopArr[0]);
     }
@@ -383,6 +404,10 @@ class AppComponent extends React.Component {
       imgFigures.push(<ImgFigure data={value} key={index} ref={'imgFigure'+index}
       arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)}
       center={this.center(index)} />);
+
+      controllerUnits.push(<ControllerUnit key={index} arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)}
+                                           center={this.center(index)}/>)
+
     })
     return (
       <section className="stage" ref="stage">

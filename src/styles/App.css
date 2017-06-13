@@ -1,4 +1,11 @@
 /* Base Application Styles */
+@font-face {
+  font-family: 'iconfont';
+  src: url('../fonts/icons/turn-arrow.eot') format("embedded-opentype"), /* IE9*/
+  url('../fonts/icons/turn-arrow.woff') format('woff'), /* chrome、firefox */
+  url('../fonts/icons/turn-arrow.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('../fonts/icons/turn-arrow.svg') format('svg'); /* iOS 4.1- */
+}
 *{
   margin: 0;
   padding: 0;
@@ -74,7 +81,7 @@ figcaption>.image-title{
 }
 /* image -- end */
 /* controller --start */
-  controller-nav{
+  .controller-nav{
     position: absolute;
     left: 0;
     bottom: 30px;
@@ -82,4 +89,35 @@ figcaption>.image-title{
     width: 100%;
     text-align: center;
   }
+  .controller-nav>.controller-unit{
+    display: inline-block;
+    margin: 0 5px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #aaa;
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:50%;
+    transform: scale(0.5);
+    vertical-align: middle;
+    transition: transform .6s ease-in-out,background-color 0.3s;
+  }
+.controller-nav>.controller-unit.is-center{
+  transform: scale(1);
+}
+.is-center::after{
+  color: #fff;
+  font-family: 'iconfont';
+  line-height: 30px;
+  font-size: 80%;
+  content: '\e600';
+  -webkit-font-smoothing:antialiased;
+  -moz-font-smoothing:antialiased;
+}
+.controller-nav>.controller-unit.is-inverse{
+  background-color: #555;
+  transform: rotateY(180deg);
+}
 /* controller --end */
