@@ -1,11 +1,5 @@
 基于React打造的我的画廊
 
-项目概览
-
-预览地址：http://dodomonster.red/galllery-by-react/
-根据慕课网 Materliu老师的在线课程 React实战--打造画廊应用（上）：http://www.imooc.com/learn/507 React实践图片画廊应用（下） ： http://www.imooc.com/learn/652
-项目下载运行
-
 1.下载项目：git clone git@github.com:DodoMonster/galllery-by-react.git 2.下载依赖：进入到目录gallery-by-react 运行 npm install。如果有安装cnpm的话用cnpm会快得多，没有的话也可以从现在就安装cnpm 3.npm start 或者 npm run start
 
 爬坑
