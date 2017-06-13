@@ -44,9 +44,9 @@ git步骤命令
 
 继续爬坑
 
-1.成功发布到gh-pages,打开gh-pages的预览地址，发现app.js文件找不到404了。 解决方法： - 修改default.js中的publicPath:'/assets' 为：`publicPath:'galler-by-react/assets'.
+/*1.成功发布到gh-pages,打开gh-pages的预览地址，发现app.js文件找不到404了。 解决方法： - 修改default.js中的publicPath:'/assets' 为：//`publicPath:'galler-by-react/assets'.
 
-    - 修改index.html中的
+ /   /- 修改index.html中的
     ```
        `<script type="text/javascript" src="/assets/app.js"></script>`
         为：`<script type="text/javascript" src="assets/app.js"></script>` 
@@ -61,7 +61,7 @@ git步骤命令
 
 而把项目发布到githbu-pages上的内容实际是dist文件夹下的内容，而我们再回看package.json文件中的"dist":"npm run copy"，因此我们再看看"copy"脚本命令中copy的内容只有./src/index.html ./src/favicon.ico，可是我们还需要展示图片。因此问题就是在运行npm run dist时没有把images目录复制到dist目录中。
 
-解决方法： - 直接手动操作复制images粘贴到dist目录下 - 也可以修改"copy"命令为:"copy": "copyfiles -f ./src/index.html ./src/favicon.ico ./src/images ./dist"，即添加./src/images。后再运行一遍上述列出的git步骤命令即可。
+解决方法： - 直接手动操作复制images粘贴到dist目录下 - 也可以修改"copy"命令为:"copy": "copyfiles -f ./src/index.html ./src/favicon.ico ./src/images ./dist"，即添加./src/images。后再运行一遍上述列出的git步骤命令即可。*/
 
 收获以及感想
 
